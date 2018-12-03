@@ -23,7 +23,6 @@ class MovieList extends Component {
 
 
   updateInputValue (event) {
-    console.log(event.target);
     this.setState({
       inputValue: event.target.value,
     });
@@ -35,6 +34,17 @@ class MovieList extends Component {
     });
   }
 
+  onClick (event) {
+    const movie = {
+      title: this.state.addValue
+    };
+
+    const movies = this.state.movies.concat([movie]);
+    this.setState({movies: movies});
+    this.setState({addValue: ''});
+  }
+
+
   render() {
 
     // let movies = [
@@ -45,7 +55,7 @@ class MovieList extends Component {
     //   {title: 'Ex Machina'},
     // ];
 
-    //console.log(this.state);
+    console.log(this.state);
 
     let filteredMovies = this.state.movies.filter((movie) => {
       if (!this.state.inputValue) {
@@ -80,7 +90,7 @@ class MovieList extends Component {
             value={ this.state.addValue }
             onChange={ this.updateAddValue.bind(this) } />
 
-            <button className='add'>Add</button>
+            <button className='add' onClick={ this.onClick.bind(this) }>Add</button>
         </div>    
       
         <div>
