@@ -24,4 +24,17 @@ code {
   border-width: 1px;
   width: 200px;
   height: 20px;
+  font-weight: bold;
+}
+
+.go {
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.add {
+  background-color: limegreen;
+  font-color: white;
+  border-radius: 5px;
+  font-weight: bold;
 }

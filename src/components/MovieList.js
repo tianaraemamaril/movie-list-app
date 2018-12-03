@@ -7,7 +7,8 @@ class MovieList extends Component {
     super(props);
 
     this.state = {
-      inputValue: ''
+      inputValue: '',
+      movies: [],
     };
   }
 
@@ -24,23 +25,29 @@ class MovieList extends Component {
   updateInputValue (event) {
     console.log(event.target);
     this.setState({
-      inputValue: event.target.value
+      inputValue: event.target.value,
+    });
+  }
+
+  updateAddValue (event) {
+    this.setState({
+      addValue: event.target.value
     });
   }
 
   render() {
 
-    let movies = [
-      {title: 'Mean Girls'},
-      {title: 'Hackers'},
-      {title: 'The Grey'},
-      {title: 'Sunshine'},
-      {title: 'Ex Machina'},
-    ];
+    // let movies = [
+    //   {title: 'Mean Girls'},
+    //   {title: 'Hackers'},
+    //   {title: 'The Grey'},
+    //   {title: 'Sunshine'},
+    //   {title: 'Ex Machina'},
+    // ];
 
-    console.log(this.state);
+    //console.log(this.state);
 
-    let filteredMovies = movies.filter((movie) => {
+    let filteredMovies = this.state.movies.filter((movie) => {
       if (!this.state.inputValue) {
         return true;
       }
@@ -50,14 +57,31 @@ class MovieList extends Component {
       } else {
         return false;
       }
-
     });
+
+    let movieList;
+
+    if (filteredMovies.length === 0) {
+      movieList = ('No movie by that name found.');
+    } else {
+      movieList = filteredMovies.map(this.createMovieList);
+    }
 
     return (
       <div>
         <div className='title'>
           MovieList
         </div> 
+
+        <div>
+          <input
+            className='addToList'
+            type='text'
+            value={ this.state.addValue }
+            onChange={ this.updateAddValue.bind(this) } />
+
+            <button className='add'>Add</button>
+        </div>    
       
         <div>
           <input
@@ -66,11 +90,10 @@ class MovieList extends Component {
             value={ this.state.inputValue }
             onChange={ this.updateInputValue.bind(this) } />
 
-
           <button className='go'>Go!</button>
         </div>  
       
-        { filteredMovies.map(this.createMovieList) }
+        { movieList }
 
       </div>
     );
